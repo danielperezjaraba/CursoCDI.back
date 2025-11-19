@@ -14,7 +14,6 @@ namespace CursoCDI.Application.Services;
 public class CursoService
 {
     private readonly ICursoRepository _cursoRepository;
-    private readonly IConfiguration _configuration;
     private readonly DateOnly _fechaFinClases;
     private readonly string _periodoActual;
     private readonly NotasOption _notasOption;
@@ -23,9 +22,8 @@ public class CursoService
     public CursoService(ICursoRepository cursoRepository, IConfiguration configuration, IOptions<NotasOption> options)
     {
         _cursoRepository = cursoRepository;
-        _configuration = configuration;
-        _fechaFinClases = DateOnly.Parse(_configuration.GetSection("FechaFinClases").Value);
-        _periodoActual = _configuration.GetSection("PeriodoActual").Value;
+        _fechaFinClases = DateOnly.Parse(configuration.GetSection("FechaFinClases").Value!);
+        _periodoActual = configuration.GetSection("PeriodoActual").Value!;
         _notasOption = options.Value;
     }
 
